@@ -247,6 +247,17 @@ function openAdminPanel() {
     }
 }
 
+function startAutoRefresh() {
+    setInterval(async () => {
+        const newData = await loadVotingData();
+        if (newData) {
+            votingData.employees = newData.employees;
+            renderEmployees();
+            renderResults();
+        }
+    }, 5000);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -265,5 +276,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateLanguageButtons();
         updateThemeButtonText();
     }
+ startAutoRefresh();
+}); 
 
-});
