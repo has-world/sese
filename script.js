@@ -108,8 +108,6 @@ function updateLanguageButtons() {
     });
 }
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbwL3kO_t0Nax-W-xBZG_bxLvB0Qk5Zvu9fwTMxCkzMPli9UMu43Iijsuj5nRujV4cKp/exec'; // ТВОЙ URL
-
 function loadVotingData() {
     const saved = localStorage.getItem('votingData');
     if (saved) {
@@ -118,8 +116,8 @@ function loadVotingData() {
     }
 }
 
-function saveVotingData() {
-    localStorage.setItem('votingData', JSON.stringify(votingData));
+function saveVotingData(data) {
+    localStorage.setItem('votingData', JSON.stringify(data));
 }
 
 function renderEmployees() {
@@ -158,7 +156,7 @@ function voteForEmployee(employeeId) {
     const employee = votingData.employees.find(emp => emp.id === employeeId);
     if (employee) {
         employee.votes++;
-        saveVotingData(votingData);
+        saveVotingData();
 
         localStorage.setItem('votedFor', employeeId);
         setVotedCookie();
@@ -176,7 +174,7 @@ function cancelVote() {
     const employee = votingData.employees.find(emp => emp.id === parseInt(votedEmployeeId));
     if (employee && employee.votes > 0) {
         employee.votes--;
-        saveVotingData(votingData);
+        saveVotingData();
         localStorage.removeItem('hasVoted');
         localStorage.removeItem('votedFor');
         
@@ -244,6 +242,3 @@ document.addEventListener('DOMContentLoaded', function() {
         updateThemeButtonText();
     }
 }); 
-
-
-
