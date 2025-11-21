@@ -1,0 +1,34 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "name": {
+        "ru": "Семён Александрович",
+        "en": "Semen Aleksandrovich", 
+        "kk": "Семён Александрулы"
+      },
+      "position": {
+        "ru": "Управляющий",
+        "en": "Manager",
+        "kk": "Менеджер"
+      },
+      "votes": 0,
+      "photo": "images/semen.jpg"
+    },
+    {
+      "id": 2,
+      "name": {
+        "ru": "Данил Шева",
+        "en": "Danil Shewyakov",
+        "kk": "Данил Шева"
+      },
+      "position": {
+        "ru": "Управляющий", 
+        "en": "Manager",
+        "kk": "Менеджер"
+      },
+      "votes": 0,
+      "photo": "images/dan.jpg"
+    }
+  ]
+}
