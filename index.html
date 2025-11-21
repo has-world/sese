@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Голосование за лучшего сотрудника</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="theme-switcher">
+            <button onclick="toggleTheme()">🌙 Тёмная тема</button>
+        </div>
+        
+        <div class="language-switcher">
+            <button onclick="changeLanguage('ru')">Русский</button>
+            <button onclick="changeLanguage('en')">English</button>
+            <button onclick="changeLanguage('kk')">Қазақша</button>
+        </div>
+        
+       <div class="admin-access">
+            <button onclick="openAdminPanel()">⚙️ Админ-панель</button>
+       </div>
+
+        <header>
+            <h1 id="title">💜 Лучший сотрудник месяца</h1>
+            <div class="establishment-info">
+                <h2 id="establishment">SESE in Prime</h2>
+                <p class="voting-period" id="votingPeriod">Голосование: 22-29 ноября 2025</p>
+            </div>
+            <div class="admin-access">
+            <button onclick="openAdminPanel()">⚙️ Админ-панель</button>
+            </div>
+        </header>
+
+        <section class="prizes">
+            <h3 id="prizesTitle">🏅 Призы победителям:</h3>
+            <ul id="prizesList">
+                <li>1 место — 500 ирисок 🍬</li>
+                <li>2 место — 200 ирисок 🍬</li>
+                <li>3 место — 50 ирисок 🍬</li>
+            </ul>
+        </section>
+
+        <section class="voting-section">
+            <h3 id="chooseEmployee">Выберите лучшего сотрудника:</h3>
+            <div class="employees-grid" id="employeesContainer">
+                <!-- Сотрудники будут здесь -->
+            </div>
+        </section>
+
+        <section class="results">
+            <h3 id="currentResults">Текущие результаты:</h3>
+            <div id="resultsContainer"></div>
+        </section>
+    </div>
+
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
