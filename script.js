@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateLanguageButtons();
         updateThemeButtonText();
     }
- startAutoRefresh();
 }); 
+
 
 
