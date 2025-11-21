@@ -1,12 +1,10 @@
-// Загрузка данных голосования
 function loadVotingData() {
-    // Сначала пробуем взять из localStorage
+    
     const saved = localStorage.getItem('votingData');
     if (saved) {
         return JSON.parse(saved);
     }
     
-    // Если нет, используем фиксированные данные из data.json
     return {
         employees: [
             {
@@ -215,5 +213,4 @@ function deleteEmployee(employeeId) {
 document.addEventListener('DOMContentLoaded', function() {
     updateStats();
     loadEmployees();
-
 });
