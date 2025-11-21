@@ -1,7 +1,65 @@
 // Загрузка данных голосования
 function loadVotingData() {
+    // Сначала пробуем взять из localStorage
     const saved = localStorage.getItem('votingData');
-    return saved ? JSON.parse(saved) : null;
+    if (saved) {
+        return JSON.parse(saved);
+    }
+    
+    // Если нет, используем фиксированные данные из data.json
+    return {
+        employees: [
+            {
+                id: 1,
+                name: { ru: "Семён Александрович", en: "Semen Aleksandrovich", kk: "Семён Александрулы" },
+                position: { ru: "Управляющий", en: "Manager", kk: "Менеджер" },
+                votes: 0,
+                photo: "images/semen.jpg"
+            },
+            {
+                id: 2, 
+                name: { ru: "Данил Шева", en: "Danil Shewyakov", kk: "Данил Шева" },
+                position: { ru: "Управляющий", en: "Manager", kk: "Менеджер" },
+                votes: 0,
+                photo: "images/dan.jpg"
+            },
+            {
+                id: 3,
+                name: { ru: "Ольга Угадайка", en: "Olga Ugadaika", kk: "Ольга Угадайка" },
+                position: { ru: "Управляющий", en: "Manager", kk: "Менеджер" },
+                votes: 0,
+                photo: "images/olya.jpg"
+            },
+            {
+                id: 4,
+                name: { ru: "Максим Мурнвелл", en: "Maksim Mournvell", kk: "Максим Мурнвелл" },
+                position: { ru: "Модератор", en: "Moderator", kk: "Модератор" },
+                votes: 0,
+                photo: "images/mournvell.jpg"
+            },
+            {
+                id: 5,
+                name: { ru: "Илья Котов", en: "Ilya Kotov", kk: "Илья Котов" },
+                position: { ru: "Модератор", en: "Moderator", kk: "Модератор" },
+                votes: 0,
+                photo: "images/ilya.jpg"
+            },
+            {
+                id: 6,
+                name: { ru: "Максим Мистик", en: "Maksim Mistik", kk: "Максим Мистик" },
+                position: { ru: "Модератор", en: "Moderator", kk: "Модератор" },
+                votes: 0,
+                photo: "images/mistik.jpg"
+            },
+            {
+                id: 7,
+                name: { ru: "Кристина Люцифер", en: "Kristina Lucifer", kk: "Кристина Люцифер" },
+                position: { ru: "Модератор", en: "Moderator", kk: "Модератор" },
+                votes: 0,
+                photo: "images/kris.jpg"
+            }
+        ]
+    };
 }
 
 // Обновление статистики
@@ -157,4 +215,5 @@ function deleteEmployee(employeeId) {
 document.addEventListener('DOMContentLoaded', function() {
     updateStats();
     loadEmployees();
+
 });
