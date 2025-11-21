@@ -110,38 +110,16 @@ function updateLanguageButtons() {
 
 const API_URL = 'https://script.google.com/macros/s/AKfycbwL3kO_t0Nax-W-xBZG_bxLvB0Qk5Zvu9fwTMxCkzMPli9UMu43Iijsuj5nRujV4cKp/exec'; // ТВОЙ URL
 
-// Загрузка данных с Google Sheets
-async function loadVotingData() {
-    try {
-        const response = await fetch(API_URL);
-        const employees = await response.json();
-        
-        return {
-            employees: employees.map(emp => ({
-                ...emp,
-                votes: parseInt(emp.votes) || 0
-            }))
-        };
-    } catch (error) {
-        console.error('Ошибка загрузки:', error);
-        // Fallback на localStorage
-        const saved = localStorage.getItem('votingData');
-        return saved ? JSON.parse(saved) : null;
+function loadVotingData() {
+    const saved = localStorage.getItem('votingData');
+    if (saved) {
+        const data = JSON.parse(saved);
+        votingData.employees = data.employees;
     }
 }
 
-// Сохранение голосов
-async function saveVotingData(data) {
-    try {
-        await fetch(API_URL, {
-            method: 'POST',
-            body: JSON.stringify(data.employees)
-        });
-    } catch (error) {
-        console.error('Ошибка сохранения:', error);
-        // Fallback на localStorage
-        localStorage.setItem('votingData', JSON.stringify(data));
-    }
+function saveVotingData() {
+    localStorage.setItem('votingData', JSON.stringify(votingData));
 }
 
 function renderEmployees() {
@@ -170,7 +148,7 @@ function renderEmployees() {
     });
 }
 
-async function voteForEmployee(employeeId) {
+function voteForEmployee(employeeId) {
     const t = translations[currentLanguage];
     
     if (hasVoted()) {
@@ -180,7 +158,7 @@ async function voteForEmployee(employeeId) {
     const employee = votingData.employees.find(emp => emp.id === employeeId);
     if (employee) {
         employee.votes++;
-        await saveVotingData(votingData);
+        saveVotingData(votingData);
 
         localStorage.setItem('votedFor', employeeId);
         setVotedCookie();
@@ -190,7 +168,7 @@ async function voteForEmployee(employeeId) {
     }
 }
 
-async function cancelVote() {
+function cancelVote() {
     const t = translations[currentLanguage];
     const votedEmployeeId = localStorage.getItem('votedFor');
     if (!votedEmployeeId) return;
@@ -198,7 +176,7 @@ async function cancelVote() {
     const employee = votingData.employees.find(emp => emp.id === parseInt(votedEmployeeId));
     if (employee && employee.votes > 0) {
         employee.votes--;
-        await saveVotingData(votingData);
+        saveVotingData(votingData);
         localStorage.removeItem('hasVoted');
         localStorage.removeItem('votedFor');
         
@@ -247,17 +225,6 @@ function openAdminPanel() {
     }
 }
 
-function startAutoRefresh() {
-    setInterval(async () => {
-        const newData = await loadVotingData();
-        if (newData) {
-            votingData.employees = newData.employees;
-            renderEmployees();
-            renderResults();
-        }
-    }, 5000);
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -278,4 +245,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
  startAutoRefresh();
 }); 
+
 
