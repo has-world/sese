@@ -111,8 +111,14 @@ function updateLanguageButtons() {
 function loadVotingData() {
     const saved = localStorage.getItem('votingData');
     if (saved) {
-        const data = JSON.parse(saved);
-        votingData.employees = data.employees;
+        try {
+            const data = JSON.parse(saved);
+            votingData.employees = data.employees;
+        } catch (error) {
+            console.error('Ошибка парсинга JSON:', error);
+            
+            localStorage.removeItem('votingData');
+        }
     }
 }
 
@@ -242,3 +248,4 @@ document.addEventListener('DOMContentLoaded', function() {
         updateThemeButtonText();
     }
 }); 
+
